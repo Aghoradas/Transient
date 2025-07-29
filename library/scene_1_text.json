@@ -1,0 +1,6 @@
+{
+    "scene_1": {
+        "enter_room" : "You have lost everything.",
+        "look_self" : "You look at yourself.. Don't do that too much."
+    }
+}

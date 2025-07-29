@@ -1,0 +1,90 @@
+{
+  "room_1" : {
+    "scene_id" : "room1",
+    "scene_name": "Introduction",
+    "background": "../assets/bg_test.png",
+    "midground": "../assets/foreg_trees.png",
+    "exit_rectangle": {
+      "right": [
+        920.0,
+        640.0,
+        20.0,
+        20.0
+      ]
+    },
+    "zone_points": 6,
+    "walk_zone" : [
+      0, 500,
+      488, 624,
+      1000, 611,
+      1000, 690,
+      500, 690,
+      0, 690
+    ],
+    "next_room": {
+      "right": "room2"
+    },
+    "scene_text": "../library/scene_1_text.json"
+  },
+  "room_2" : {
+    "scene_id": "room2",
+    "scene_name": "Next Scene",
+    "background": "../assets/bg_field.png",
+    "midground": "../assets/foreg_trees2.png",
+    "exit_rectangle": {
+      "left": [
+        0.0,
+        640.0,
+        20.0,
+        20.0
+      ],
+      "right": [
+        920.0,
+        640.0,
+        20.0,
+        20.0
+      ]
+    },
+    "zone_points": 6,
+    "walk_zone" : [
+      0, 500,
+      488, 624,
+      1000, 611,
+      1000, 690,
+      500, 690,
+      0, 690
+    ],
+    "next_room": {
+      "left": "room1",
+      "right": "room3"
+    },
+    "scene_text": "../library/scene_2_text.json"
+  },
+  "room_3" : {
+    "scene_id": "room3",
+    "scene_name": "Scene 3",
+    "background": "../assets/bg_field.png",
+    "midground": "../assets/foreg_trees3.png",
+    "exit_rectangle": {
+      "left": [
+        0.0,
+        640.0,
+        20.0,
+        20.0
+      ]
+    },
+    "zone_points": 6,
+    "walk_zone" : [
+      0, 624,
+      488, 624,
+      1000, 611,
+      1000, 690,
+      500, 690,
+      0, 690
+    ],
+    "next_room": {
+      "left": "room2"
+    },
+    "scene_text": "../library/scene_1_text.json"
+  }
+}
