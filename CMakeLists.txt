@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.31)
-project(Point_Click)
+project(Transient)
 
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(Point_Click
+add_executable(Transient
         src/main.cpp
         src/player.cpp
         src/look_mech.cpp
@@ -15,5 +15,5 @@ add_executable(Point_Click
 )
 
 
-target_link_libraries(Point_Click
+target_link_libraries(Transient
         PRIVATE raylib m pthread dl GL X11)
