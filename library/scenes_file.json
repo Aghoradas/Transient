@@ -6,10 +6,10 @@
     "midground": "../assets/foreg_trees.png",
     "exit_rectangle": {
       "right": [
-        920.0,
-        640.0,
+        980.0,
+        610.0,
         20.0,
-        20.0
+        80.0
       ]
     },
     "zone_points": 6,
@@ -24,6 +24,9 @@
     "next_room": {
       "right": "room2"
     },
+    "items": {
+        "egg": ["egg", "../assets/egg.png", 354.0, 548.0]
+    },
     "scene_text": "../library/scene_1_text.json"
   },
   "room_2" : {
@@ -34,15 +37,15 @@
     "exit_rectangle": {
       "left": [
         0.0,
-        640.0,
+        510.0,
         20.0,
-        20.0
+        170.0
       ],
       "right": [
-        920.0,
-        640.0,
+        980.0,
+        610.0,
         20.0,
-        20.0
+        80.0
       ]
     },
     "zone_points": 6,
@@ -68,7 +71,7 @@
     "exit_rectangle": {
       "left": [
         0.0,
-        640.0,
+        630.0,
         20.0,
         20.0
       ]

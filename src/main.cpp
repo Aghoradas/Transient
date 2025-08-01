@@ -13,7 +13,7 @@ int main() {
 
 
     // Frame rate cap
-    SetTargetFPS(100);
+    SetTargetFPS(60);
 
 
     /* PLAYER CREATION
@@ -85,6 +85,13 @@ int main() {
             Vector2 beginning_pt = scene_engine.current_scene->walk_zone.at(i);
             Vector2 ending_pt = scene_engine.current_scene->walk_zone.at(i+1);
             DrawLineEx(beginning_pt, ending_pt, 5.0f, GREEN);
+        }
+
+        if (scene_engine.current_scene->exit_scene.count("right")) {
+            DrawRectangleRec(scene_engine.current_scene->exit_scene["right"], WHITE);
+        }
+        if (scene_engine.current_scene->exit_scene.count("left")) {
+            DrawRectangleRec(scene_engine.current_scene->exit_scene["left"], WHITE);
         }
 
         EndDrawing();

@@ -82,7 +82,7 @@ void Player::update(float& frame_time) {
             direction.x /= distance;
             direction.y /= distance;
 
-            const float speed = 75.0f * GetFrameTime();
+            const float speed = 100.0f * GetFrameTime();
             position.x += direction.x * speed;
             position.y += direction.y * speed;
         } else {
@@ -109,7 +109,7 @@ void Player::update(float& frame_time) {
     dest = {
         position.x,
         position.y,
-        width,
+        width - 8,
         height
     };
 

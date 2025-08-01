@@ -8,6 +8,7 @@ void SceneEngine::init(int width, int height) {
     window_width = width;
     window_height = height;
     register_scenes();
+    current_scene->init();
 }
 
 void SceneEngine::register_scenes() {
@@ -44,7 +45,6 @@ void SceneEngine::handle_mouse() {
             player->destination.x -= player->width/2;
             player->destination.y -= player->height;
             player->is_walking     = true;
-            temp_interaction       = player->dialogue;
         }
     }
     if (!current_scene->exit_scene.empty()) {
@@ -52,11 +52,13 @@ void SceneEngine::handle_mouse() {
         if (CheckCollisionRecs(player->dest, current_scene->exit_scene["right"])) {
             exit_location = "right";
             std::string new_room = current_scene->next_room[exit_location];
+            current_scene->exiting();
             switch_scene(new_room);
             player->new_scene(exit_location);
         } else if (CheckCollisionRecs(player->dest, current_scene->exit_scene["left"])) {
             exit_location = "left";
             std::string new_room = current_scene->next_room[exit_location];
+            current_scene->exiting();
             switch_scene(new_room);
             player->new_scene(exit_location);
         }
@@ -70,6 +72,11 @@ void SceneEngine::handle_mouse() {
         // You can use a scene grid or collision detection to trigger interactions here
         if (CheckCollisionPointRec(clicked, player->dest)) {
             current_scene->dialogue = current_scene->scene_text["look_self"].at(0);
+        }
+        for (auto& item : current_scene->room_items) {
+            if (CheckCollisionPointRec(clicked, item.click_box)) {
+                current_scene->dialogue = item.mouse_handle(clicked);
+            }
         }
     }
 }
