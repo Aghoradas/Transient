@@ -3,40 +3,49 @@
 #define PLAYER_H
 
 #include <string>
+#include <map>
+#include <vector>
 #include <cmath>
 #include <raylib.h>
 
+#include "item_mech.hpp"
 
 
 class Player {
 public:
 
     // PLAYER ANIMATIONS
-    const int frame_count = 10;
+    const int   frame_count = 10;
 
-    Texture2D idle;
-    Texture2D walk;
-    Texture2D animation_state;
+    Texture2D   idle;
+    Texture2D   walk;
+    Texture2D   animation_state;
 
     // Setup for sprite animation frames.
-    float width;
-    float height;
-    int current_frame = 0;
-    float frame_timer = 0.0f;
+    float       width;
+    float       height;
+    int         current_frame = 0;
+    float       frame_timer = 0.0f;
 
     // Player start position
-    float player_enter_x = 30.0f;
-    float player_enter_y = 575.0f;
-    Vector2 position = {player_enter_x, player_enter_y};
-    Vector2 destination = {player_enter_x, player_enter_y};
+    float       player_enter_x = 30.0f;
+    float       player_enter_y = 575.0f;
+    Vector2     position = {player_enter_x, player_enter_y};
+    Vector2     destination = {player_enter_x, player_enter_y};
 
-    Rectangle src = {};
-    Vector2 origin = {};
-    Rectangle dest = {};
+    // Inventory
+    std::map<std::string, Item>
+                inventory;
+    void inventory_mechanics() {}
 
-    Vector2 mouse_click_target;
+    // Player Boxes
+    Rectangle   src = {};
+    Vector2     origin = {};
+    Rectangle   dest = {};
 
-    bool is_walking = false;
+    Vector2     mouse_click_target;
+
+    bool        is_walking = false;
     std::string dialogue = " ";
 
     // Utility function to get distance between two points
@@ -45,7 +54,6 @@ public:
 
     }
 
-
     void initialize();
     void new_scene(std::string& new_room);
     void update(float& frame_time);
@@ -53,4 +61,4 @@ public:
     void unload();
 
 };
-#endif //PLAYER_H
+#endif

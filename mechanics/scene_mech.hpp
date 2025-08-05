@@ -13,66 +13,20 @@
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/document.h>
 
+#include "../mechanics/item_mech.hpp"
 #include "../mechanics/player.hpp"
 
-
-/* ITEM CLASS
-****************/
-class Item {
-public:
-    std::string     file_location;
-
-    Texture2D       sprite;
-    Rectangle       click_box;
-
-    std::string     item_name;
-    float           location_x;
-    float           location_y;
-
-    bool            was_clicked = false;
-
-
-    void init() {
-        std::cout << "-item init" << item_name << std::endl;
-        sprite = LoadTexture(file_location.c_str());
-
-        sprite.height *= 2;
-        sprite.width *= 2;
-
-        click_box = {
-            location_x,
-            location_y,
-            static_cast<float>(sprite.width),
-            static_cast<float>(sprite.height)
-        };
-    }
-    std::string mouse_handle(Vector2 click) {
-        if (CheckCollisionPointRec(click, click_box) && !was_clicked) {
-            was_clicked = true;
-            return "Ouch, that hurt!";
-        } else if (CheckCollisionPointRec(click, click_box) && was_clicked) {
-            return "Oh wow! They're right about you. You are relentless.";
-        }
-
-    }
-    void render() {
-        DrawTextureV(sprite, (Vector2){location_x, location_y}, WHITE);
-    }
-    void unload() {
-        UnloadTexture(sprite);
-    }
-};
 
 
 /* SCENE CLASS
 *****************/
 class SceneOperations {
 public:
-    SceneOperations() = default;
     ~SceneOperations() {
         UnloadTexture(background);
         UnloadTexture(midground);
     }
+
     std::string                                     scene_name;
     int                                             screen_width;
     int                                             screen_height;
@@ -87,7 +41,7 @@ public:
     Texture2D                                       background;
     Texture2D                                       midground;
 
-    std::vector<Item>                               room_items;
+    std::map<std::string, Item>                     room_items;
 
     std::string                                     text_location;
     std::map<std::string, std::vector<std::string>> scene_text;

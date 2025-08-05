@@ -7,7 +7,7 @@ int main() {
     /*Initialization
     *******************/
     constexpr int screen_width = 1000;
-    constexpr int screen_height = 800;
+    constexpr int screen_height = 862;
     constexpr int scene_height = 700;
     InitWindow(screen_width, screen_height, "The Transient - A Point & Click Investigation");
 
@@ -39,8 +39,6 @@ int main() {
     Texture2D ui_base = LoadTexture("../assets/player_bar.png");
     int ui_y_begin = 695;
     int ui_x_begin = 0;
-    ui_base.width = screen_width;
-    ui_base.height = 105;
 
 
     /* AUDIO INIT
@@ -72,13 +70,17 @@ int main() {
         // DRAW ui_base
         DrawTexture(ui_base, ui_x_begin, ui_y_begin, WHITE);
 
+        for (auto& item : scene_engine.player->inventory) {
+            item.second.icon_render();
+        }
+
         // DRAW interaction state
         if (scene_engine.current_scene->dialogue != " ") {
             DrawTextEx(scene_engine.in_game_font, scene_engine.current_scene->dialogue.c_str(),
-                (Vector2){50, 720}, 12, 1.0f, BLACK);
+                (Vector2){50, 782}, 12, 1.0f, BLACK);
         } else {
             DrawTextEx(scene_engine.in_game_font, scene_engine.player->dialogue.c_str(),
-                (Vector2){50, 715}, 15, 1.0f, BLACK);
+                (Vector2){50, 782}, 15, 1.0f, BLACK);
         }
 
         for (int i = 0; i < (scene_engine.current_scene->walk_zone.size() - 1); i++) {

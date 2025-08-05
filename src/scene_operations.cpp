@@ -42,7 +42,7 @@ void parse_scene_text(std::string& text_location, std::map<std::string, std::vec
 void SceneOperations::init() {
 
     for (auto& item : room_items) {
-        item.init();
+        item.second.init();
     }
 
 }
@@ -56,7 +56,7 @@ void SceneOperations::entering() {
     midground = LoadTexture(midground_path.c_str());
         for (auto& item : room_items) {
             std::cout << "-loading items to scene" << std::endl;
-            item.init();
+            item.second.init();
         }
 
     background.width = screen_width;
@@ -70,8 +70,8 @@ void SceneOperations::entering() {
 
 void SceneOperations::exiting() {
     for (auto& item : room_items) {
-        std::cout << "-unloading" << item.item_name << std::endl;
-        item.unload();
+        std::cout << "-unloading" << item.second.item_name << std::endl;
+        item.second.unload();
     }
     UnloadTexture(midground);
     UnloadTexture(background);
@@ -87,6 +87,6 @@ void SceneOperations::render() {
     DrawTexture(midground, 0, 0, WHITE);
 
     for (auto& item : room_items) {
-        item.render();
+        item.second.render();
     }
 }

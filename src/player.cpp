@@ -1,4 +1,5 @@
 #include "../mechanics/player.hpp"
+#include <raylib.h>
 
 
 void Player::initialize() {
@@ -136,6 +137,7 @@ void Player::update(float& frame_time) {
 void Player::render() {
 
     DrawTexturePro(animation_state, src, dest, origin, 0.0f, WHITE);
+
 
 }
 

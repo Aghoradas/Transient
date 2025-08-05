@@ -89,7 +89,7 @@ void SceneFactory::create(std::map<std::string, std::shared_ptr<SceneOperations>
                 new_item.file_location = json_item[1].GetString();
                 new_item.location_x = json_item[2].GetFloat();
                 new_item.location_y = json_item[3].GetFloat();
-                room->room_items.emplace_back(new_item);
+                room->room_items[new_item.item_name] = new_item;
             }
         }
 

@@ -1,4 +1,5 @@
 #include "../mechanics/scene_mech.hpp"
+#include <raylib.h>
 
 
 
@@ -16,7 +17,6 @@ void SceneEngine::register_scenes() {
     SceneFactory factory;
     factory.create(scene_registry, window_width, window_height);
     current_scene = scene_registry["room1"];
-
 }
 
 void SceneEngine::switch_scene(std::string& new_room) {
@@ -38,7 +38,25 @@ void SceneEngine::render() const {
 }
 
 void SceneEngine::handle_mouse() {
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (IsKeyDown(KEY_LEFT_CONTROL)) {
+        Item exchange_item;
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            auto mouse_position = GetMousePosition();
+            std::cout << "Pickup" << std::endl;
+            for (auto& item : current_scene->room_items) {
+                if (CheckCollisionPointRec(mouse_position, item.second.click_box)) {
+                    exchange_item = item.second;
+                    exchange_item.location_x = 47;
+                    exchange_item.location_y = 70;
+
+                    player->inventory[exchange_item.item_name] = exchange_item;
+
+                }
+            }
+            current_scene->room_items.erase(exchange_item.item_name);
+        }
+
+    } else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         // Left click to move
         if (CheckCollisionPointPoly(GetMousePosition(), &current_scene->walk_zone[0], current_scene->zone_points)) {
             player->destination = GetMousePosition();
@@ -54,7 +72,7 @@ void SceneEngine::handle_mouse() {
             std::string new_room = current_scene->next_room[exit_location];
             current_scene->exiting();
             switch_scene(new_room);
-            player->new_scene(exit_location);
+        player->new_scene(exit_location);
         } else if (CheckCollisionRecs(player->dest, current_scene->exit_scene["left"])) {
             exit_location = "left";
             std::string new_room = current_scene->next_room[exit_location];
@@ -74,8 +92,8 @@ void SceneEngine::handle_mouse() {
             current_scene->dialogue = current_scene->scene_text["look_self"].at(0);
         }
         for (auto& item : current_scene->room_items) {
-            if (CheckCollisionPointRec(clicked, item.click_box)) {
-                current_scene->dialogue = item.mouse_handle(clicked);
+            if (CheckCollisionPointRec(clicked, item.second.click_box)) {
+                current_scene->dialogue = item.second.mouse_handle(clicked);
             }
         }
     }

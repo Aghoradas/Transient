@@ -25,7 +25,7 @@
       "right": "room2"
     },
     "items": {
-        "egg": ["egg", "../assets/egg.png", 354.0, 548.0]
+        "coal": ["coal", "../assets/Coal.png", 354.0, 548.0]
     },
     "scene_text": "../library/scene_1_text.json"
   },
@@ -74,6 +74,12 @@
         630.0,
         20.0,
         20.0
+      ],
+      "right": [
+        980.0,
+        610.0,
+        20.0,
+        80.0
       ]
     },
     "zone_points": 6,
@@ -86,7 +92,35 @@
       0, 690
     ],
     "next_room": {
-      "left": "room2"
+      "left": "room2",
+      "right": "room4"
+    },
+    "scene_text": "../library/scene_1_text.json"
+  },
+  "room_4" : {
+    "scene_id": "room4",
+    "scene_name": "Scene 4",
+    "background": "../assets/bg_field.png",
+    "midground": "../assets/foreg_trees4.png",
+    "exit_rectangle": {
+      "left": [
+        0.0,
+        630.0,
+        20.0,
+        20.0
+      ]
+    },
+    "zone_points": 6,
+    "walk_zone" : [
+      0, 624,
+      488, 624,
+      1000, 611,
+      1000, 690,
+      500, 690,
+      0, 690
+    ],
+    "next_room": {
+      "left": "room3"
     },
     "scene_text": "../library/scene_1_text.json"
   }
