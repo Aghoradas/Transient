@@ -35,8 +35,8 @@ public:
         sprite.width  *= 2;
 
         icon = sprite;
-        icon.height -= icon.height * .50;
-        icon.width -= icon.width * .25;
+        icon.height -= static_cast<int>(static_cast<float>(icon.height) * 0.50f);
+        icon.width -= static_cast<int>(static_cast<float>(icon.width) * 0.25f);
 
         click_box = {
             location_x,
@@ -46,20 +46,22 @@ public:
         };
     }
 
-    std::string mouse_handle(Vector2 click) {
+    std::string mouse_handle(const Vector2& click) {
         if (CheckCollisionPointRec(click, click_box) && !was_clicked) {
             was_clicked = true;
-            return "Ouch, that hurt!";
-        } else if (CheckCollisionPointRec(click, click_box) && was_clicked) {
+            return description;
+        }
+        if (CheckCollisionPointRec(click, click_box) && was_clicked) {
+            was_clicked = false;
             return "Oh wow! They're right about you. You are relentless.";
         }
-        return " ";
+        return "";
 
     }
-    void icon_render() {
-        DrawTexture(icon, 344, 705, GRAY);
+    void icon_render() const {
+        DrawTextureV(icon, (Vector2){344, 705}, GRAY);
     }
-    void render() {
+    void render() const {
         DrawTextureV(sprite, (Vector2){location_x, location_y}, WHITE);
     }
     void unload() const {

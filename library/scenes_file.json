@@ -25,7 +25,7 @@
       "right": "room2"
     },
     "items": {
-        "coal": ["coal", "../assets/Coal.png", 354.0, 548.0]
+        "coal": ["coal", "It's just a pile of coal.", "../assets/Coal.png", 354.0, 548.0]
     },
     "scene_text": "../library/scene_1_text.json"
   },

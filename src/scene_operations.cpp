@@ -81,7 +81,7 @@ void SceneOperations::update(float delta_time) {
 
 }
 
-void SceneOperations::render() {
+void SceneOperations::render() const {
 
     DrawTexture(background, 0, 0, WHITE);
     DrawTexture(midground, 0, 0, WHITE);

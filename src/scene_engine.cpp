@@ -32,39 +32,32 @@ void SceneEngine::update(const float delta_time) {
     player->update(frame_time);
 }
 
-void SceneEngine::render() const {
-    current_scene->render();
-    player->render();
-}
 
 void SceneEngine::handle_mouse() {
     if (IsKeyDown(KEY_LEFT_CONTROL)) {
-        Item exchange_item;
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            auto mouse_position = GetMousePosition();
-            std::cout << "Pickup" << std::endl;
-            for (auto& item : current_scene->room_items) {
-                if (CheckCollisionPointRec(mouse_position, item.second.click_box)) {
-                    exchange_item = item.second;
-                    exchange_item.location_x = 47;
-                    exchange_item.location_y = 70;
+            const Vector2 mouse_position = GetMousePosition();
 
-                    player->inventory[exchange_item.item_name] = exchange_item;
-
-                }
+            const auto x_distance = static_cast<unsigned int>(mouse_position.x - player->position.x);
+            const auto y_distance = static_cast<unsigned int>(mouse_position.y - player->position.y);
+            std::cout << x_distance << ", " << y_distance << std::endl;
+            if (x_distance < 120 && y_distance < 120) {
+                const std::string removed_item = inventory.pickup_item(current_scene->room_items, mouse_position);
+                current_scene->room_items.erase(removed_item);
             }
-            current_scene->room_items.erase(exchange_item.item_name);
         }
 
     } else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         // Left click to move
         if (CheckCollisionPointPoly(GetMousePosition(), &current_scene->walk_zone[0], current_scene->zone_points)) {
+            current_scene->dialogue = "";
             player->destination = GetMousePosition();
             player->destination.x -= player->width/2;
             player->destination.y -= player->height;
             player->is_walking     = true;
         }
     }
+
     if (!current_scene->exit_scene.empty()) {
         std::string exit_location;
         if (CheckCollisionRecs(player->dest, current_scene->exit_scene["right"])) {
@@ -83,19 +76,37 @@ void SceneEngine::handle_mouse() {
     }
     if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
         // Right click to interact/look
-        Vector2 clicked = GetMousePosition();
-        current_scene->dialogue = "Looking at (" + std::to_string(static_cast<int>(clicked.x)) +
-          "," + std::to_string(static_cast<int>(clicked.y)) + ")";
+        const Vector2 mouse_position = GetMousePosition();
+
+        if (mouse_position.y > current_scene->screen_height) {
+            current_scene->dialogue = inventory.look_item(mouse_position);
+            return;
+        }
+        current_scene->dialogue = "Looking at (" + std::to_string(static_cast<int>(mouse_position.x)) +
+          "," + std::to_string(static_cast<int>(mouse_position.y)) + ")";
 
         // You can use a scene grid or collision detection to trigger interactions here
-        if (CheckCollisionPointRec(clicked, player->dest)) {
+        if (CheckCollisionPointRec(mouse_position, player->dest)) {
             current_scene->dialogue = current_scene->scene_text["look_self"].at(0);
+            return;
         }
         for (auto& item : current_scene->room_items) {
-            if (CheckCollisionPointRec(clicked, item.second.click_box)) {
-                current_scene->dialogue = item.second.mouse_handle(clicked);
+            if (CheckCollisionPointRec(mouse_position, item.second.click_box)) {
+                current_scene->dialogue = item.second.mouse_handle(mouse_position);
+                return;
             }
         }
     }
 }
 
+void SceneEngine::render() const {
+
+    current_scene->render();
+    player->render();
+
+    // DRAW ui_base
+    DrawTexture(ui_base, ui_x_begin, ui_y_begin, WHITE);
+
+    inventory.render();
+
+}

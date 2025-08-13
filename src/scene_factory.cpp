@@ -80,15 +80,16 @@ void SceneFactory::create(std::map<std::string, std::shared_ptr<SceneOperations>
         if (member_name.HasMember("items")) {
             std::cout << "\n-loading items from json" << std::endl;
             auto member_name_json = member_name["items"].GetObject();
-            for (auto item = member_name_json.begin(); item != member_name_json.end(); item++) {
+            for (auto item = member_name_json.begin(); item != member_name_json.end(); ++item) {
                 auto& json_item = item->value;
                 std::cout << "\n-items: " << json_item[0].GetString() << std::endl;
                 std::cout << "-file_location: " << json_item[1].GetString();
                 Item new_item;
                 new_item.item_name = json_item[0].GetString();
-                new_item.file_location = json_item[1].GetString();
-                new_item.location_x = json_item[2].GetFloat();
-                new_item.location_y = json_item[3].GetFloat();
+                new_item.description = json_item[1].GetString();
+                new_item.file_location = json_item[2].GetString();
+                new_item.location_x = json_item[3].GetFloat();
+                new_item.location_y = json_item[4].GetFloat();
                 room->room_items[new_item.item_name] = new_item;
             }
         }

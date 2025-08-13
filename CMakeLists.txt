@@ -12,6 +12,7 @@ add_executable(Transient
         src/scene_engine.cpp
         src/scene_factory.cpp
         src/scene_operations.cpp
+        src/inventory.cpp
 )
 
 

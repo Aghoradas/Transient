@@ -31,6 +31,7 @@ void Player::initialize() {
         width,
         height
     };
+
 }
 
 void Player::new_scene(std::string& exit_location) {
@@ -134,10 +135,9 @@ void Player::update(float& frame_time) {
 
 }
 
-void Player::render() {
+void Player::render() const {
 
     DrawTexturePro(animation_state, src, dest, origin, 0.0f, WHITE);
-
 
 }
 

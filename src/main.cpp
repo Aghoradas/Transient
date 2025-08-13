@@ -16,16 +16,14 @@ int main() {
     SetTargetFPS(60);
 
 
-    /* PLAYER CREATION
-    *********************/
+    // Player Creation
     const auto new_player = std::make_shared<Player>();
     new_player->initialize();
     float frame_time = 0.3f;
     new_player->update(frame_time);
 
 
-    /* SCENE CREATION
-    ********************/
+    // Scene Creation
     printf("-scene engine creation: ");
     SceneEngine scene_engine;
     scene_engine.player = new_player;
@@ -34,15 +32,7 @@ int main() {
     printf("-scene engine creation: complete\n");
 
 
-    /* UI-INIT
-    *************/
-    Texture2D ui_base = LoadTexture("../assets/player_bar.png");
-    int ui_y_begin = 695;
-    int ui_x_begin = 0;
-
-
-    /* AUDIO INIT
-    ****************/
+    // Audio init
     InitAudioDevice();
     Music music = LoadMusicStream("../assets/sounds/we-have-time.mp3");
     PlayMusicStream(music);
@@ -64,15 +54,10 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
+
+
         // DRAW scene
         scene_engine.render();
-
-        // DRAW ui_base
-        DrawTexture(ui_base, ui_x_begin, ui_y_begin, WHITE);
-
-        for (auto& item : scene_engine.player->inventory) {
-            item.second.icon_render();
-        }
 
         // DRAW interaction state
         if (scene_engine.current_scene->dialogue != " ") {

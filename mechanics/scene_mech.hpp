@@ -35,7 +35,7 @@ public:
     void entering();
     void exiting();
     void update(float delta_time);
-    void render();
+    void render() const;
 
     bool loaded = false;
     Texture2D                                       background;
@@ -80,6 +80,9 @@ public:
     Font in_game_font = GetFontDefault();
     float frame_time = 0.0f;
 
+    // Inventory
+    Inventory   inventory;
+
     void init(int width, int height);
     void register_scenes();
     void switch_scene(std::string& new_room);
@@ -91,6 +94,12 @@ public:
     std::shared_ptr<Player> player = nullptr;
 
     std::string temp_interaction;
+
+
+    // UI - init
+    Texture2D ui_base = LoadTexture("../assets/player_bar.png");
+    int ui_y_begin = 695;
+    int ui_x_begin = 0;
 
 private:
 
