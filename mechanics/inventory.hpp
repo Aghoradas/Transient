@@ -21,12 +21,12 @@ public:
     void          init();
     std::string   look_item(const Vector2& mouse_position) const;
     std::string   pickup_item(const std::map<std::string, Item>& room_items, const Vector2& mouse_position);
-    std::string   drop_item(std::map<std::string, Item>& room_items, const Vector2& mouse_position);
+    void          drop_item(std::map<std::string, Item>& room_items, const Vector2& player_position, const Vector2& mouse_position);
     void          render() const;
 
 private:
     struct Inv_Bar {
-        Vector2 slot_1 = {47, 70};
+        Vector2 slot_1 = {347, 700};
         Vector2 slot_2;
         Vector2 slot_3;
         Vector2 slot_4;

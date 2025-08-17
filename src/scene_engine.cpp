@@ -46,6 +46,13 @@ void SceneEngine::handle_mouse() {
                 current_scene->room_items.erase(removed_item);
             }
         }
+        if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+            const Vector2 mouse_position = GetMousePosition();
+            std::printf("-pressed: CTRL + RIGHT_MOUSE\n");
+
+            inventory.drop_item(current_scene->room_items, player->position, mouse_position);
+
+        }
 
     } else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         // Left click to move
@@ -91,7 +98,7 @@ void SceneEngine::handle_mouse() {
             return;
         }
         for (auto& item : current_scene->room_items) {
-            if (CheckCollisionPointRec(mouse_position, item.second.click_box)) {
+            if (CheckCollisionPointRec(mouse_position, item.second.sprite_click_box)) {
                 current_scene->dialogue = item.second.mouse_handle(mouse_position);
                 return;
             }

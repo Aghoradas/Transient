@@ -68,7 +68,7 @@ void SceneOperations::entering() {
     dialogue = scene_text["enter_room"].at(0);
 }
 
-void SceneOperations::exiting() {
+void SceneOperations::exiting() const {
     for (auto& item : room_items) {
         std::cout << "-unloading" << item.second.item_name << std::endl;
         item.second.unload();
@@ -77,7 +77,7 @@ void SceneOperations::exiting() {
     UnloadTexture(background);
 }
 
-void SceneOperations::update(float delta_time) {
+void SceneOperations::update(float delta_time) const {
 
 }
 

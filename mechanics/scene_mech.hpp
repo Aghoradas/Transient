@@ -33,8 +33,8 @@ public:
 
     void init();
     void entering();
-    void exiting();
-    void update(float delta_time);
+    void exiting() const;
+    void update(float delta_time) const;
     void render() const;
 
     bool loaded = false;

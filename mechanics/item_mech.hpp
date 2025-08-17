@@ -15,8 +15,9 @@ public:
 
 
     Texture2D       sprite;
+    Rectangle       sprite_click_box;
     Texture2D       icon;
-    Rectangle       click_box;
+    Rectangle       icon_click_box;
 
     std::string     item_name;
     std::string     description;
@@ -34,24 +35,31 @@ public:
         sprite.height *= 2;
         sprite.width  *= 2;
 
-        icon = sprite;
-        icon.height -= static_cast<int>(static_cast<float>(icon.height) * 0.50f);
-        icon.width -= static_cast<int>(static_cast<float>(icon.width) * 0.25f);
-
-        click_box = {
+        sprite_click_box = {
             location_x,
             location_y,
             static_cast<float>(sprite.width),
             static_cast<float>(sprite.height)
         };
-    }
 
-    std::string mouse_handle(const Vector2& click) {
-        if (CheckCollisionPointRec(click, click_box) && !was_clicked) {
+
+        icon = sprite;
+        icon.height -= static_cast<int>(static_cast<float>(icon.height) * 0.50f);
+        icon.width -= static_cast<int>(static_cast<float>(icon.width) * 0.25f);
+
+        icon_click_box = {
+            location_x,
+            location_y,
+            static_cast<float>(icon.width),
+            static_cast<float>(icon.height)
+        };
+    }
+ std::string mouse_handle(const Vector2& click) {
+        if (CheckCollisionPointRec(click, sprite_click_box) && !was_clicked) {
             was_clicked = true;
             return description;
         }
-        if (CheckCollisionPointRec(click, click_box) && was_clicked) {
+        if (CheckCollisionPointRec(click, sprite_click_box) && was_clicked) {
             was_clicked = false;
             return "Oh wow! They're right about you. You are relentless.";
         }
